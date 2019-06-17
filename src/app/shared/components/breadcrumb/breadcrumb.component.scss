@@ -1,0 +1,14 @@
+@import '../../../../theme';
+/*.active-page{
+    color: mat-color($app-primary);
+}*/
+.mat-card-breadcrumb{
+    background-color: mat-color($app-primary);
+    color: white;
+    padding: 10px !important;
+    font-size: 15px;
+    font-weight: normal;
+}
+.mat-card-breadcrumb .mat-icon{
+    font-size: 18px;
+}

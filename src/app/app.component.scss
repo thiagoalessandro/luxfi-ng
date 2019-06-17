@@ -1,0 +1,112 @@
+@import "../breakpoints";
+@import "../theme";
+
+.mat-sidenav {
+  width: 255px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+}
+.mat-sidenav-container {
+  background-color: white !important;
+  height: 135vh;
+  margin-top: 5px;
+}
+.card-sidebar {
+  padding: 20px 20px 5px 30px !important;
+  font-size: 10px !important;
+  border-radius: 0px !important;
+  background-color: mat-color($app-primary);
+  color: white !important;
+}
+.card-sidebar .mat-card-subtitle {
+  color: white !important;
+}
+.sidenav-toolbar {
+  height: 64px;
+  background-color: mat-color($app-primary);
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 600px) {
+    height: 56px;
+  }
+}
+.mat-toolbar {
+  -webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+.mat-nav-list {
+  padding-top: 0;
+}
+@include breakpoint-max(600px) {
+  .fixed-topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100% !important;
+  }
+
+  .mat-drawer-container,
+  .mat-drawer {
+    padding-top: 56px;
+  }
+}
+.menu-list-item.mat-list-item {
+  .mat-list-item-content {
+    flex: 1 1 100%;
+  }
+}
+.version-info {
+  font-size: 8pt;
+  float: right;
+  padding: 8px;
+}
+.mat-card-header .mat-card-title {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  margin-bottom: 5px !important;
+}
+.mat-list-base .mat-list-item {
+  font-size: 14px !important;
+}
+.mat-list-item {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.mat-card-actions,
+.mat-card-content,
+.mat-card-subtitle {
+  margin-bottom: 0px !important;
+}
+.mat-list-base .mat-list-item {
+  height: 35px !important;
+}
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  padding: 0 0 !important;
+}
+.mat-card-header .mat-card-subtitle {
+  margin-top: -14px !important;
+}
+router-outlet ~ * {
+  position: absolute;
+  width: 97%;
+}
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.tab-icon {
+  margin-right: 8px;
+}
+.mat-card-breadcrumb {
+  margin-top: -5px !important;
+  color: rgba(0, 0, 0, 0.575);
+}
+.mat-icon-breadcrumb {
+  position: relative;
+  top: 5px;
+}
+.mat-card-breadcrumb {
+  font-weight: bold;
+}

@@ -1,0 +1,12 @@
+<div [class]="messageClass">
+  <div class="snack-bar-close">
+    <button mat-button (click)="onClose()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <ul>
+    <li *ngFor="let message of messages">
+      {{ message }}
+    </li>
+  </ul>
+</div>

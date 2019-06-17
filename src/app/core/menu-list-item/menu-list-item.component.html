@@ -1,0 +1,19 @@
+<a mat-list-item class="menu-list-item mat-list-menu" 
+(click)="onMenuSelected(menu)" [ngClass]="{'active': menuActive(menu),'expanded': expanded}">
+  <mat-icon class="routeIcon">{{menu.icone}}</mat-icon>
+  {{menu.nome}}
+  <span fxFlex>
+    <span fxFlex></span>
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+      expand_more 
+    </mat-icon>
+  </span>
+</a>
+<div *ngIf="expanded"> 
+  <a mat-list-item *ngFor="let submenu of menu.listSubMenu" (click)="onSubMenuSelected(menu, submenu)"
+    [ngClass]="{'active': subMenuActive(menu, submenu),'expanded': expanded}" 
+    class="menu-list-item mat-list-submenu"> 
+    <mat-icon class="routeIcon">{{submenu.icone}}</mat-icon>
+    {{submenu.funcionalidade.nome}}
+  </a>
+</div>

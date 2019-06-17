@@ -1,0 +1,8 @@
+<nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let option of listOptions" 
+       [routerLink]="[rotaFuncionalidade.concat(option.operacao.rota)]"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+       <mat-icon class="tab-icon">{{option.operacao.icone}}</mat-icon>{{option.operacao.nome}}
+    </a>
+</nav>

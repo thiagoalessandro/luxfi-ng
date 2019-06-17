@@ -1,0 +1,12 @@
+<div class="form-container-button">
+  <button mat-raised-button color="primary" (click)="reciverEvent('limpar')">
+      <mat-icon>delete_sweep</mat-icon>
+      Limpar
+  </button>
+  <button mat-raised-button color="primary" *ngFor="let option of listOptions" 
+          (click)="reciverEvent(option.operacao.nome)" 
+          [disabled]="disabledOption(option.operacao)">
+    <mat-icon>{{option.operacao.icone}}</mat-icon>
+    {{option.operacao.nome}}
+  </button>
+</div>

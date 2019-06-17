@@ -1,0 +1,9 @@
+<mat-card class="mat-card-breadcrumb">
+    {{ itens[0] }}
+  <span *ngIf="!home"> 
+    <mat-icon class="mat-icon-breadcrumb">keyboard_arrow_right</mat-icon> 
+    <span>{{ itens[1] }}</span>
+    <mat-icon class="mat-icon-breadcrumb">keyboard_arrow_right</mat-icon> 
+    <span class="active-page">{{ itens[2] }}</span>
+  </span>
+</mat-card>

@@ -1,0 +1,28 @@
+@import '../../../../theme';
+
+.mat-dialog-title {
+    color: mat-color($app-primary);
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    margin: 0 0 10px;
+    //font-weight: bold;
+}
+.mat-dialog-actions button{
+    color: white;
+    background-color: mat-color($app-primary);
+}
+.mat-dialog-actions{
+    width: 100%;
+}
+.mat-dialog-content{
+    font-size: 14px;
+    padding: 5px 15px 10px 15px;
+}
+.dialog-action{
+    margin:  0 auto;
+}
+.mat-dialog-title .mat-icon{
+    position: relative;
+    top: 4px;
+}

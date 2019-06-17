@@ -1,0 +1,18 @@
+<mat-toolbar color="primary" class="fixed-topnav">
+  <div class="box-logo" fxLayoutAlign="center center">
+    <img src="assets/images/citybank.jpeg" />
+    <div fxFlex="1 1 0%"></div>
+    <button mat-icon-button (click)="sideNavComponent.snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div fxFlex="1 1 0%"></div>
+  <div class="topbar-right">
+    <button mat-icon-button>
+      <mat-icon>person_pin</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
