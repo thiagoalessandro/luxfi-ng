@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  apiHost: 'http://localhost:8080/intelector/api'
+  urlWs: 'http://localhost:8080',
+  contextResourceServer: 'intelector/api',
+  contextAuthorizationServer: 'oauth',
+  authorizationClient: 'Y2xpZW50YXBwOiM0MjM1VGhXWVI=',
+  contentTypeRequestWs: 'application/json',
+  grantType: 'password'
 };
 
 /*

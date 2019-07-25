@@ -1,11 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav #snav mode="side" opened>
+  <mat-sidenav #snav mode="side" opened *ngIf="logged">
     <mat-card class="card-sidebar">
       <mat-card-header>
         <div mat-card-avatar class="img-avatar"></div>
-        <mat-card-title>Thiago</mat-card-title>
-        <mat-card-subtitle
-          >Administrador
+        <mat-card-title>{{nomeUsuario}}</mat-card-title>
+        <mat-card-subtitle>{{perfilUsuario}}
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -14,9 +13,9 @@
               <mat-icon>person_pin</mat-icon>
               <span>Perfil</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="logout()" title="Sair">
               <mat-icon>exit_to_app</mat-icon>
-              <span>Logout</span>
+              <span>Sair</span>
             </button>
           </mat-menu>
         </mat-card-subtitle>

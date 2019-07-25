@@ -7,11 +7,11 @@
     </button>
   </div>
   <div fxFlex="1 1 0%"></div>
-  <div class="topbar-right">
+  <div class="topbar-right" *ngIf="logged">
     <button mat-icon-button>
       <mat-icon>person_pin</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="logout()" title="Sair">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>

@@ -1,32 +1,35 @@
-import { SideNavComponent } from "./core/side-nav/side-nav.component";
-import { SegMenuModel } from "./shared/models/seg-menu.model";
-import {
-  Component,
-  ViewEncapsulation,
-  OnInit,
-  ViewChild,
-  EventEmitter,
-  AfterViewInit
-} from "@angular/core";
-
-import { NavService } from "./core/services/nav.service";
-import { RouterOutlet } from "@angular/router";
-import { RouterAnimation } from "./core/animations/router.animation";
-import { MatSidenav, MatSnackBar } from "@angular/material";
-import { CommomBase } from "./shared/bases/commom-base";
-import { ViewChildren } from "@angular/core";
+import {SideNavComponent} from './core/side-nav/side-nav.component';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {MatSnackBar} from '@angular/material';
+import {NotifyMessageComponent} from './shared/components/notify-message/notify-message.component';
+import {MessagesProduce} from './core/produces/messagesProduce';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  private currentUser: string;
 
   @ViewChild(SideNavComponent)
   sideNavComponent: SideNavComponent;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  constructor(private snackBar: MatSnackBar) {
+    MessagesProduce.message.subscribe(message => this.openSnackBar(message));
+  }
+
+  private openSnackBar(text: string) {
+    if (text !== undefined) {
+      this.snackBar.openFromComponent(NotifyMessageComponent, {
+        data: {
+          message: text,
+          type: 'error'
+        }
+      });
+    }
+  }
 }

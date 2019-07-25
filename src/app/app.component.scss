@@ -2,14 +2,16 @@
 @import "../theme";
 
 .mat-sidenav {
-  width: 255px;
+  width: 234px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 }
+
 .mat-sidenav-container {
   background-color: white !important;
   height: 135vh;
   margin-top: 5px;
 }
+
 .card-sidebar {
   padding: 20px 20px 5px 30px !important;
   font-size: 10px !important;
@@ -17,9 +19,11 @@
   background-color: mat-color($app-primary);
   color: white !important;
 }
+
 .card-sidebar .mat-card-subtitle {
   color: white !important;
 }
+
 .sidenav-toolbar {
   height: 64px;
   background-color: mat-color($app-primary);
@@ -29,6 +33,7 @@
     height: 56px;
   }
 }
+
 .mat-toolbar {
   -webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
@@ -38,6 +43,7 @@
 .mat-nav-list {
   padding-top: 0;
 }
+
 @include breakpoint-max(600px) {
   .fixed-topnav {
     position: fixed;
@@ -52,61 +58,157 @@
     padding-top: 56px;
   }
 }
+
 .menu-list-item.mat-list-item {
   .mat-list-item-content {
     flex: 1 1 100%;
   }
 }
+
 .version-info {
   font-size: 8pt;
   float: right;
   padding: 8px;
 }
+
 .mat-card-header .mat-card-title {
-  font-size: 16px !important;
-  font-weight: bold !important;
+  font-size: 13px !important;
   margin-bottom: 5px !important;
+  margin-top: 5px !important;
 }
+
 .mat-list-base .mat-list-item {
-  font-size: 14px !important;
+  /*font-size: 13px !important;*/
 }
+
 .mat-list-item {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
+
 .mat-card-actions,
 .mat-card-content,
 .mat-card-subtitle {
   margin-bottom: 0px !important;
-}
-.mat-list-base .mat-list-item {
-  height: 35px !important;
+  font-size: 12px !important;
 }
 .mat-toolbar-row,
 .mat-toolbar-single-row {
   padding: 0 0 !important;
 }
+
 .mat-card-header .mat-card-subtitle {
   margin-top: -14px !important;
 }
+
 router-outlet ~ * {
   position: absolute;
   width: 97%;
 }
+
 .mat-tab-group {
   margin-bottom: 48px;
 }
+
 .tab-icon {
   margin-right: 8px;
 }
+
 .mat-card-breadcrumb {
   margin-top: -5px !important;
   color: rgba(0, 0, 0, 0.575);
 }
+
 .mat-icon-breadcrumb {
   position: relative;
   top: 5px;
 }
+
 .mat-card-breadcrumb {
   font-weight: bold;
+}
+
+.mat-card-breadcrumb {
+  background-color: mat-color($app-primary);
+  color: white;
+  padding: 5px 15px !important;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.mat-card-breadcrumb .mat-icon {
+  font-size: 18px;
+}
+
+.mat-form-field {
+  font-size: 11px;
+  width: 100%;
+}
+
+.mat-tab-group,
+.mat-tab-body-wrapper,
+.mat-tab-links {
+}
+
+.card-sidebar {
+  padding: 10px 13px 0px 30px !important;
+}
+
+.data-table-container {
+  margin-top: 17px;
+  height: 450px;
+}
+
+.mat-progress-spinner {
+  margin: auto;
+  position: relative;
+  top: 30%;
+}
+
+.mat-cell, .mat-footer-cell {
+  font-size: 13px !important;
+}
+
+.mat-card-actions button {
+  font-size: 11px !important;
+}
+.mat-list-item {
+  padding: 8px 0;
+  display: flex;
+  width: auto;
+
+  .routeIcon {
+    margin-right: 40px;
+    width: 10px !important;
+  }
+
+}
+tr.mat-footer-row, tr.mat-row {
+  height: 35px !important;
+}
+.mat-card-avatar {
+  height: 30px !important;
+  width: 30px !important;
+  position: relative;
+  top: 5px;
+}
+.mat-button .mat-icon,
+.mat-raised-button .mat-icon{
+  font-size: 17px !important;
+  position: relative;
+  top: 2px;
+  margin-left: -10px;
+}
+.mat-button .mat-button-wrapper,
+.mat-raised-button .mat-button-wrapper{
+  font-size: 12px !important;
+}
+
+.mat-button,
+.mat-raised-button {
+  margin: 0 5px 0 0 !important;
+  line-height: 32px !important;
+}
+.mat-fab:not([class*=mat-elevation-z]), .mat-mini-fab:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
 }

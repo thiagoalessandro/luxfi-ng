@@ -1,0 +1,58 @@
+<app-breadcrumb (eventBreadcrumb)="receiverBreadcrumb($event)"></app-breadcrumb>
+<div class="form-container">
+
+  <div class="title-page">
+    {{breadCrumb.operation}} {{breadCrumb.function}}
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <fieldset>
+    <legend>
+      <mat-icon>drag_indicator</mat-icon>
+      {{breadCrumb.operation}}
+    </legend>
+    <form [formGroup]="form">
+      <div formGroupName="oper">
+        <div class="row">
+          <mat-form-field class="col-md-4">
+            <input matInput placeholder="Nome" formControlName="nome" [readonly]="disableForm()">
+          </mat-form-field>
+          <mat-form-field class="col-md-4">
+            <input matInput placeholder="Sigla" formControlName="sigla" [readonly]="disableForm()">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-md-4">
+            <input matInput placeholder="Descrição" formControlName="descricao" [readonly]="disableForm()">
+          </mat-form-field>
+          <mat-form-field class="col-md-4">
+            <input matInput placeholder="Icone" formControlName="icone" [readonly]="disableForm()">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngIf="!disableForm()">
+          <button mat-raised-button color="warn" (click)="onReset()">
+            <mat-icon>delete_sweep</mat-icon>
+            Limpar
+          </button>
+          <button mat-raised-button color="primary" (click)="onSubmit()">
+            <mat-icon>{{breadCrumb.icon}}</mat-icon>
+            {{breadCrumb.operation}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </fieldset>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button mat-raised-button (click)="goBack()">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Voltar
+      </button>
+    </div>
+  </div>
+
+</div>

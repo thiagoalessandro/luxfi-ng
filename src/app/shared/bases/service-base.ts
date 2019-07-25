@@ -1,121 +1,148 @@
-import { RequestErrorException } from "../exceptions/request-error-exception";
-import { environment } from "../../../environments/environment";
-import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-
-const headerDefault = {
-  "Content-Type": "application/json",
-  Authorization: "my-auth-token"
-};
+import {environment} from 'src/environments/environment';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export abstract class ServiceBase<T> {
+
   private httpClient: HttpClient;
   private serviceName: string;
+  private context: string;
 
-  public initService(serviceName: string, httpClient: HttpClient) {
+  public initServiceResourceServer(serviceName: string, httpClient: HttpClient) {
     this.httpClient = httpClient;
     this.serviceName = serviceName;
+    this.context = this.getContextResourceServer();
   }
 
-  private getApiHost(): String {
-    return environment.apiHost;
+  public initServiceAuthorizationServer(serviceName: string, httpClient: HttpClient) {
+    this.httpClient = httpClient;
+    this.serviceName = serviceName;
+    this.context = this.getContextAuthorizationServer();
   }
 
-  public getlist(
-    filter: Array<string>,
-    pageNumber: number,
-    pageSize: number
-  ): Promise<Array<T>> {
-    let params = new Array<string>();
-    params["page"] = pageNumber;
-    params["count"] = pageSize;
-    for (var i in filter) {
-      params[i] = filter[i];
+  private getUrlWs(): string {
+    return environment.urlWs;
+  }
+
+  private getContextResourceServer(): string {
+    return environment.contextResourceServer;
+  }
+
+  private getContextAuthorizationServer(): string {
+    return environment.contextAuthorizationServer;
+  }
+
+  public getContentTypeRequestWs(): string {
+    return environment.contentTypeRequestWs;
+  }
+
+  public get(path: string, optionsParams: Array<string>, optionsHeaders: Array<string>): Observable<any> {
+    let url = this.getApiHostService();
+    if (path != null) {
+      url = url.concat('/').concat(path);
     }
-    return this.get(params);
+    return this.sendRequest(url,
+      'get',
+      null,
+      this.parseArrayToHttpParams(optionsParams),
+      this.parseArrayToHttpHeaders(optionsHeaders));
   }
-  public getAll(): Promise<Array<T>> {
-    return this.get(null);
+
+  public post(body: any, httpParams: HttpParams, httpHeaders: HttpHeaders): Observable<any> {
+    return this.sendRequest(this.getApiHostService(),
+      'post',
+      body,
+      httpParams,
+      httpHeaders);
+
   }
-  public get<T>(params): Promise<Array<T>> {
-    return this.sendRequest(this.getApiHostService(), "get", null, params).then(
-      response => this.handleResponse(response)
-    );
+
+  public patch(body: any): Observable<any> {
+    return this.sendRequest(this.getApiHostService(),
+      'patch',
+      body,
+      null,
+      null)
+      .pipe(
+        map(data => this.handlerResponse(data))
+      );
   }
-  public post<T>(body): Promise<T> {
-    return this.sendRequest(this.getApiHostService(), "post", body, null).then(
-      response => this.handleResponse(response)
-    );
-  }
-  public patch<T>(body): Promise<T> {
-    return this.sendRequest(this.getApiHostService(), "patch", body).then(
-      response => this.handleResponse(response)
-    );
-  }
-  public delete(id: number): Promise<void> {
+
+  public delete(id: number): Observable<any> {
     return this.sendRequest(
       `${this.getApiHostService()}/${id}`,
-      "delete",
-      null
-    ).then(response => this.handleResponse(response));
+      'delete',
+      null,
+      null,
+      null);
   }
+
+  public postFormDataHeaders(body: any, optionsHeaders: Array<string>): Observable<any> {
+    if (optionsHeaders == null) {
+      optionsHeaders = new Array<string>();
+    }
+    optionsHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+    return this.post(this.parseObjectToHttpParams(body),
+      null,
+      this.parseArrayToHttpHeaders(optionsHeaders));
+  }
+
   private sendRequest(
     url: string,
     type: string,
     body: any,
-    paramsOptions: Array<string> = null
-  ): Promise<any> {
-    var httpOptions;
-    let httpParams = new HttpParams();
-
-    if (paramsOptions != null) {
-      for (let key in paramsOptions) {
-        httpParams = httpParams.append(key, paramsOptions[key]);
-      }
-    }
-
-    httpOptions = {
-      headers: new HttpHeaders(headerDefault),
+    httpParams: HttpParams,
+    httpHeaders: HttpHeaders
+  ): Observable<any> {
+    const httpOptions = {
+      headers: httpHeaders,
       params: httpParams
     };
 
-    if (type == "get" || type == "delete") {
-      return this.httpClient[type]<T>(url, httpOptions)
-        .toPromise()
-        .catch(e => this.handleError(e));
-    } else if (type == "post" || type == "put") {
-      return this.httpClient[type]<T>(url, body, httpOptions)
-        .toPromise()
-        .catch(e => this.handleError(e));
+    if (type === 'get' || type === 'delete') {
+      return this.httpClient[type]<any>(url, httpOptions);
+    } else if (type === 'post' || type === 'put') {
+      return this.httpClient[type]<any>(url, body, httpOptions);
     }
+  }
+
+  public parseArrayToHttpHeaders(optionsHeaders: Array<string>): HttpHeaders {
+    let httpHeaders = new HttpHeaders();
+    if (optionsHeaders != null) {
+      for (const key in optionsHeaders) {
+        httpHeaders = httpHeaders.append(key, optionsHeaders[key]);
+      }
+    }
+    return httpHeaders;
+  }
+
+  public parseArrayToHttpParams(optionsParams: Array<string>): HttpParams {
+    let httpParams = new HttpParams();
+    if (optionsParams != null) {
+      for (const key in optionsParams) {
+        httpParams = httpParams.append(key, optionsParams[key]);
+      }
+    }
+    return httpParams;
+  }
+
+  public parseObjectToHttpParams(object: Object): HttpParams {
+    let httpParams = new HttpParams();
+    if (object != null) {
+      Object.keys(object).map(function (key) {
+        httpParams = httpParams.append(key, object[key]);
+      });
+    }
+    return httpParams;
   }
 
   private getApiHostService() {
-    return `${this.getApiHost()}/${this.serviceName}`;
+    return `${this.getUrlWs()}/${this.context}/${this.serviceName}`;
   }
 
-  private handleResponse(response: any): any {
-    var errors: Array<string>;
-    if (response["errors"]) {
-      errors = response["errors"];
-      if (errors.length) {
-        return Promise.reject(
-          new RequestErrorException(this.refineMessage(response["errors"]))
-        );
-      }
-    }
-    return response["data"];
+  public handlerResponse(response): any {
+    return response['data'];
   }
 
-  private handleError(e: Error): any {
-    console.log(e.message);
-    var messageError: string = e.message;
-    if (e.message.search("unknown url")) {
-      messageError = "Sem conexão com o servidor";
-    }
-    return Promise.reject(new Error(messageError));
-  }
-
-  private refineMessage(message: Array<string>): string {
-    return message.join(";");
-  }
 }

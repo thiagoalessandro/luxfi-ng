@@ -16,7 +16,7 @@ body {
   margin: 0;
   height: 100vh;
   font-family: Roboto, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 13px;
   color: #292a1d;
 }
 
@@ -69,23 +69,8 @@ footer {
   left: -10px;
 }
 
-/*.mat-drawer-inner-container.card-sidebar {
-  padding: 10px 20px 0px 30px !important;
-}*/
-
 table {
   width: 100%;
-}
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-.mat-tab-group,
-.mat-tab-body-wrapper,
-.mat-tab-links {
-  margin-top: 15px !important;
 }
 
 .mat-tab-link {
@@ -96,12 +81,11 @@ table {
 .form-container {
   border: none;
   padding: 10px 0 0 10px !important;
-  //box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-  //box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
 .form-container > * {
   width: 100%;
+  margin-top: 10px;
 }
 
 .form-container-button {
@@ -122,20 +106,12 @@ table {
 .form-container .mat-divider {
   padding-bottom: 10px;
 }
-
-.mat-raised-button .mat-icon {
-  margin-left: -10px;
+.form-container fieldset legend mat-icon{
+  width: 10px !important;
+  font-size: 14px !important;
+  position: relative;
+  top: 2px;
 }
-
-.mat-raised-button {
-  margin: 0 5px 0 0 !important;
-}
-
-.data-table-container {
-  margin-top: 17px;
-  height: 450px;
-}
-
 .show-table {
   visibility: visible;
   opacity: 1;
@@ -145,12 +121,6 @@ table {
 .hide-table {
   visibility: hidden;
   opacity: 0;
-}
-
-.mat-progress-spinner {
-  margin: auto;
-  position: relative;
-  top: 30%;
 }
 
 .snack-bar-container {
@@ -263,7 +233,11 @@ table {
 }
 
 .box-login {
-  max-width: 400px;
+  max-width: 300px;
+  margin: 0 auto;
+  top: 120px;
+  background-color: transparent !important;
+  padding: 5px !important;
 }
 
 .box-login .mat-card-actions {
@@ -283,14 +257,15 @@ table {
 }
 
 .box-login-header .mat-card-title .mat-icon {
+  font-size: 15px;
   position: relative;
-  top: 5px;
+  top: 2px;
 }
 
 .box-login-header {
   background-color: mat-color($app-primary);
   color: #FFFFFF;
-  padding: 7px 0 9px 0;
+  padding: 2px 0 0px 0;
 }
 
 .btn-login {
@@ -298,10 +273,81 @@ table {
   color: #FFFFFF !important;
 }
 
-.btn-login .mat-icon {
-  font-size: 19px;
+.box-login-header .mat-card-title {
+  margin-top: 7px;
 }
 
 .box-login-header .mat-card-title span {
-  margin-left: 128px;
+  margin-left: 88px;
+}
+
+.body-login {
+  width: 100%;
+  /*height: 800px;
+  background-image: url('assets/images/fundo-login.jpg');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: bottom right;*/
+  position: absolute;
+}
+
+fieldset {
+  border: 1px #F2F4F4 solid;
+}
+
+fieldset legend {
+}
+
+.mat-list-submenu {
+  padding-left: 15px !important;
+  font-size: 12px !important;
+  height: 30px !important;
+}
+
+.mat-list-submenu .mat-icon {
+  font-size: 16px;
+  position: relative;
+  top: 3px;
+}
+
+.mat-list-menu {
+  padding-left: 14px;
+  font-size: 13px !important;
+  height: 35px !important;
+}
+
+.mat-list-item.active {
+  background-color: mat-color($app-primary, 50);
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  width: 100%;
+
+  .mat-list-item.active {
+    background-color: mat-color($app-primary, 50);
+  }
+
+  &:hover,
+  &:focus {
+    > .mat-list-item:not(.expanded) {
+      background-color: mat-color($app-primary, 100) !important;
+    }
+  }
+}
+
+.box-options-register .mat-mini-fab .mat-icon {
+  font-size: 14px !important;
+}
+
+.box-options-register .mat-mini-fab {
+  width: 30px !important;
+  height: 30px !important;
+  margin-left: 7px !important;
+}
+.title-page {
+  font-size: 14px;
+  padding: 0 0 10px 5px;
 }
