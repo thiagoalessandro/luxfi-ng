@@ -6,7 +6,7 @@ import {ValidateAttributeDto} from '../dto/validate-attribute.dto';
 export abstract class ServiceApiBase<T> extends ServiceBase<T> {
 
   public getValidateAttributes(): Observable<Array<ValidateAttributeDto>> {
-    return this.get('validate-attributes', null, null)
+    return this.getByArrayParams('validate-attributes', null, null)
       .pipe(map(response => this.handlerResponse(response)));
   }
 
@@ -21,12 +21,12 @@ export abstract class ServiceApiBase<T> extends ServiceBase<T> {
     for (const i in filter) {
       params[i] = filter[i];
     }
-    return this.get(null, params, null)
+    return this.getByArrayParams(null, params, null)
       .pipe(map(response => this.handlerResponse(response)));
   }
 
   public getAll(): Observable<T[]> {
-    return this.get(null, null, null)
+    return this.getByArrayParams(null, null, null)
       .pipe(map(response => this.handlerResponse(response)));
   }
 
@@ -38,7 +38,7 @@ export abstract class ServiceApiBase<T> extends ServiceBase<T> {
   }
 
   public getById(id: string): Observable<T> {
-    return this.get(id, null, null)
+    return this.getByArrayParams(id, null, null)
       .pipe(map(response => this.handlerResponse(response)));
   }
 

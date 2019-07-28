@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ServiceApiBase} from './service-api-base';
 import {AfterViewInit, OnInit} from '@angular/core';
+import {MessagesProduce} from '../../core/produces/messagesProduce';
 
 export abstract class FormBase<T, S extends ServiceApiBase<T>> extends CommomBase implements OnInit, AfterViewInit {
 
@@ -21,11 +22,20 @@ export abstract class FormBase<T, S extends ServiceApiBase<T>> extends CommomBas
   }
 
   ngOnInit(): void {
+    this.beforeOnInit();
     this.onInit();
+    this.afterOnInit();
   }
 
   public onInit(): void {
   }
+
+  public afterOnInit(): void {
+  }
+
+  public beforeOnInit(): void {
+  }
+
 
   ngAfterViewInit(): void {
     this.afterViewInit();
@@ -118,6 +128,7 @@ export abstract class FormBase<T, S extends ServiceApiBase<T>> extends CommomBas
   }
 
   public afterSubmitSuccess() {
+    MessagesProduce.publish('Operação realizada com sucesso!')
     const splitUrl = NavService.getSplitPath(this.router.url);
     this.router.navigate([splitUrl[0], 'cons']);
   }

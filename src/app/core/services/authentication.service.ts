@@ -57,7 +57,7 @@ export class AuthenticationService extends ServiceApiBase<any> {
   public userAuthenticated(tokenAcess: string): Observable<UserAuthDto> {
     const headerOptions = new Array<string>();
     headerOptions['Authorization'] = `Bearer ${tokenAcess}`;
-    return this.get(null, null, headerOptions).pipe(map(response => this.handlerResponse(response)));
+    return this.getByArrayParams(null, null, headerOptions).pipe(map(response => this.handlerResponse(response)));
   }
 
   public logout() {

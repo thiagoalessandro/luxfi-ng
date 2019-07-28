@@ -37,7 +37,13 @@ export abstract class ServiceBase<T> {
     return environment.contentTypeRequestWs;
   }
 
-  public get(path: string, optionsParams: Array<string>, optionsHeaders: Array<string>): Observable<any> {
+  public getByArrayParams(path: string, optionsParams: Array<string>, optionsHeaders: Array<string>): Observable<any> {
+    return this.get(path,
+      this.parseArrayToHttpParams(optionsParams),
+      this.parseArrayToHttpHeaders(optionsHeaders));
+  }
+
+  public get(path: string, optionsParams: HttpParams, httpHeaders: HttpHeaders): Observable<any> {
     let url = this.getApiHostService();
     if (path != null) {
       url = url.concat('/').concat(path);
@@ -45,8 +51,8 @@ export abstract class ServiceBase<T> {
     return this.sendRequest(url,
       'get',
       null,
-      this.parseArrayToHttpParams(optionsParams),
-      this.parseArrayToHttpHeaders(optionsHeaders));
+      optionsParams,
+      httpHeaders);
   }
 
   public post(body: any, httpParams: HttpParams, httpHeaders: HttpHeaders): Observable<any> {
