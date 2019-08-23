@@ -35,6 +35,20 @@ footer {
   padding: 15px;
   font-size: 12px;
 }
+/*
+
+.overlay {
+  background-color:#EFEFEF;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1000 !important;
+  top: 0px;
+  left: 0px;
+  opacity: .5; !* in FireFox *!
+  filter: alpha(opacity=50); !* in IE *!
+}
+*/
 
 .img-avatar {
   background-image: url("assets/icons/icon-avatar.png");
@@ -350,4 +364,12 @@ fieldset legend {
 .title-page {
   font-size: 14px;
   padding: 0 0 10px 5px;
+}
+.download-datatable{
+  float: right;
+  position: relative;
+  top: 5px;
+}
+.download-datatable button .mat-icon{
+  font-size: 18px !important;
 }

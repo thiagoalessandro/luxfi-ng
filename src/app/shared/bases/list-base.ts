@@ -2,7 +2,7 @@ import {FormBuilder} from '@angular/forms';
 import {DialogConfirmService} from '../components/dialog-confirm/dialog-confirm.service';
 import {DialogConfirmComponent} from '../components/dialog-confirm/dialog-confirm.component';
 import {AbstractModel} from '../models/abstract-model';
-import {ElementRef, ViewChild} from '@angular/core';
+import {ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,8 +10,8 @@ import {Location} from '@angular/common';
 import {ServiceApiBase} from './service-api-base';
 import {FormApiBase} from './form-api-base';
 import {MessagesProduce} from '../../core/produces/messagesProduce';
-
-declare var $: any;
+import {GeneratorPdfUtil} from '../utils/generator-pdf-util';
+import {environment} from '../../../environments/environment';
 
 export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase<T>> extends FormApiBase<T, S> {
 
@@ -28,11 +28,6 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('dataTable', {read: ElementRef}) table: ElementRef;
-
-  dataTable: any;
-  dtOptions: any;
-
 
   constructor(service: S,
               private dialog: MatDialog,
@@ -50,42 +45,18 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
     this.receiverActionConfirm();
   }
 
-  public afterOnInit(): void {
-    this.dtOptions = {
-      ajax: {
-        url: 'http://localhost:8080/intelector/api/oper',
-        headers: {
-          'Authorization': 'Bearer b9a52e70-6105-4a13-9af9-6e90bc94a96e'
-        },
-        type: 'GET',
-        data: {
-          'page': 0,
-          'count': '5',
-          'nome': 'null'
-        }
-      },
-      columns: [
-        {
-          title: 'Nome',
-          data: 'nome'
-        },
-        {
-          title: 'Sigla',
-          data: 'sigla'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-       'csv', 'excel', 'pdf'
-      ]
-    };
-    this.dataTable = $(this.table.nativeElement);
-    this.dataTable.DataTable(this.dtOptions);
-  }
+  public abstract getColumns(): Array<string>;
 
   public abstract getFieldFilter(): Array<string>;
 
-  public abstract getFieldColumns(): Array<string>;
+  public getFieldColumns(): Array<string> {
+    const columns = new Array<string>();
+    columns.push('select');
+    for (const key in this.getColumns()) {
+      columns.push(key);
+    }
+    return columns;
+  }
 
   private receiverActionConfirm() {
     this.dialogConfirmService.responseAction.subscribe(resp => {
@@ -101,7 +72,7 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
     this.setPageSizeOptions();
   }
 
-  ngAfterViewInit(): void {
+  public afterViewInit(): void {
     this.list();
   }
 
@@ -143,11 +114,7 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
   }
 
   public list() {
-    const filter: Array<string> = new Array<string>();
-    this.getFieldFilter().forEach(e => {
-      filter[e] = this.getForm().get(e).value;
-    });
-    this.serviceParent.getlist(filter, this.paginator.pageIndex, this.paginator.pageSize)
+    this.serviceParent.getlist(this.loadSearchFilter(), this.paginator.pageIndex, this.paginator.pageSize)
       .subscribe(
         responseData => {
           this.setDataSource(responseData['content'], responseData['totalElements']);
@@ -155,6 +122,14 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
         },
         error => this.handleErrorBaseList(error)
       );
+  }
+
+  public loadSearchFilter(): Array<string> {
+    const filters = new Array<string>();
+    this.getFieldFilter().forEach(e => {
+      filters[e] = this.getForm().get(e).value;
+    });
+    return filters;
   }
 
   public submit(): boolean {
@@ -246,6 +221,22 @@ export abstract class ListBase<T extends AbstractModel, S extends ServiceApiBase
 
   public handleErrorBaseList(e: Error) {
     this.hideProgressDataSource();
+  }
+
+  public printPdf() {
+    this.serviceParent.getlist(this.loadSearchFilter(), null, null)
+      .subscribe(
+        responseData => {
+          GeneratorPdfUtil.printPdf(environment.projectTitle,
+            `Relatório de ${this.breadCrumb.function}`,
+            this.getColumns(),
+            responseData['content']);
+        },
+        error => {
+          MessagesProduce.publish('Erro ao gerar pdf!');
+          console.log(error);
+        }
+      );
   }
 
 }

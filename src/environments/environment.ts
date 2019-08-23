@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  projectTitle: 'TCB - TOTVS CONNECT BANK',
   production: false,
   urlWs: 'http://localhost:8080',
   contextResourceServer: 'intelector/api',

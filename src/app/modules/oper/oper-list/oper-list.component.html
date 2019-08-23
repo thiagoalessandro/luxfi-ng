@@ -51,7 +51,13 @@
 
       <div class="mat-elevation-z8">
 
-        <table #dataTable></table>
+        <div class="download-datatable">
+          <button mat-raised-button color="primary" (click)="printPdf()">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Download
+          </button>
+        </div>
+
         <table mat-table [dataSource]="listData" matSort>
 
           <!-- Checkbox Column -->

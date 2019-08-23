@@ -1,11 +1,11 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogConfirmService} from '../../../shared/components/dialog-confirm/dialog-confirm.service';
 import {SegOperacaoService} from '../../../shared/services/seg-operacao.service';
-import {Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {SegOperacaoModel} from 'src/app/shared/models/seg-operacao.model';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ListBase} from 'src/app/shared/bases/list-base';
-import {ProgressSpinnerMode, MatSnackBar, MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {Location} from '@angular/common';
 
 @Component({
@@ -44,8 +44,14 @@ export class OperListComponent extends ListBase<SegOperacaoModel, SegOperacaoSer
     return ['nome'];
   }
 
-  public getFieldColumns(): Array<string> {
-    return ['select', 'id', 'nome', 'descricao', 'dh_atu', 'usu_atu'];
+  public getColumns(): Array<string> {
+    const columns:  Array<string> = [];
+    columns['id'] = 'Id';
+    columns['nome'] = 'Nome';
+    columns['descricao'] = 'Descrição';
+    columns['dh_atu'] = 'Data/Hora Atualização';
+    columns['usu_atu'] = 'Usuário de Atualização';
+    return columns;
   }
 
   public getGenerateValidatorAttributes(): boolean {

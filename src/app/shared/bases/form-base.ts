@@ -128,7 +128,7 @@ export abstract class FormBase<T, S extends ServiceApiBase<T>> extends CommomBas
   }
 
   public afterSubmitSuccess() {
-    MessagesProduce.publish('Operação realizada com sucesso!')
+    MessagesProduce.publish('Operação realizada com sucesso!');
     const splitUrl = NavService.getSplitPath(this.router.url);
     this.router.navigate([splitUrl[0], 'cons']);
   }
